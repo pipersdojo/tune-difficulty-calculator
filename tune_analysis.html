@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="peps.js"></script>
+
+    <style>
+        .label-form {
+            min-width: 250px;
+            max-width: 250px;
+        }
+
+        img {
+            image-rendering: -moz-crisp-edges; /* Firefox */
+            image-rendering: -o-crisp-edges; /* Opera */
+            image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+            image-rendering: crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+        }
+    </style>
+
+    <title>Dojo University Tune Difficulty Calculator</title>
+</head>
+
+<body>
+
+<div class="col-sm-10 pg-2 mt-4 mb-2 border-bottom">
+    <a href="https://dojouniversity.com/" target="_blank">
+        <img src="https://dojouniversity.com/wp-content/uploads/2020/02/Music-not-just-bagpipes.-1.png" alt="Dojo University" style="margin-bottom: 2em; height: 90px; width: 315px;"/>
+    </a>
+    <h2>Dojo University Tune Difficulty Calculator</h2>
+</div>
+
+<div class="col-sm-10 mb-4 border-bottom">
+    <p>
+        A tune's difficulty can be measured in "potential fingerwork errors per second." <br/>
+        For detailed information on how this is calculated, visit this
+        <a href="https://dojouniversity.com/how-a-computer-could-calculate-a-tunes-difficulty-using-bww-files/" target="_blank">blog post</a>.
+    </p>
+</div>
+
+<form>
+    <div class="col-sm-10">
+        <div class="form-group row">
+            <label for="txtPerBar" class="col-sm-3 col-form-label label-form">Rhythmic Targets Per Bar</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="txtPerBar" value="4"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="txtPerMinute" class="col-sm-3 col-form-label label-form">Rhythmic Targets Per Minute</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="txtPerMinute" value="60"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="txtMaxAsap" class="col-sm-3 col-form-label label-form">Max ASA(m)P Value</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="txtMaxAsap" value="32"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="txtIncompleteBars" class="col-sm-3 col-form-label label-form">Number of Incomplete Bars</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="txtIncompleteBars" value="1"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="txtBwwCode" class="col-sm-3 col-form-label label-form">BWW Code</label>
+            <div class="custom-file col-sm-4" style="margin-left: 15px;">
+                <input type="file" class="custom-file-input" id="txtFileUpload"/>
+                <label class="custom-file-label " for="txtFileUpload"
+                       style="overflow: hidden; white-space: nowrap; padding-right: 6em; text-overflow: ellipsis;">Choose File</label>
+            </div>
+            <div class="col-sm-1">
+                <input value="Upload" class="btn btn-primary" onclick="fileUpload(this)" readonly/>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <textarea id="txtBwwCode" class="form-control" rows="15" cols="100" placeholder="Upload file or paste code here"></textarea>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <input value="Calculate" class="btn btn-primary" onclick="calculate(this)" readonly/>
+    </div>
+
+    <div class="form-group" style="margin-top: 25px">
+        <label for="txtOutput" class="col-sm-5 col-form-label">Results</label>
+        <div class="col-sm-10">
+            <textarea id="txtOutput" class="form-control" rows="10" cols="100" readonly></textarea>
+        </div>
+    </div>
+</form>
+
+<div class="col-sm-10"><small>Designed and implemented by Andrew Douglas and Danny Johnson</small></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+</body>
+</html>
